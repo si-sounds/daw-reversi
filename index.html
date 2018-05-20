@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html  oncontextmenu="return false">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="si-sounds">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="reversi">
+  <title>reversi</title>
+  <link rel="icon" href="favicon/favicon.ico">
+  <link rel="apple-touch-icon" href="../sys/favicon/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href=".css">
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/call.js"></script>
+  <script type="text/javascript">callScript();</script>
+</head>
+<body>
+  <center>
+        <div class="relative" id ="main">
+          <img hidden id="black" src="../sys/black.png" />
+          <img hidden id="startPicture" onclick="playOpMovie()" src="../data/picture/title/title.png" />
+          <img hidden id="playButton" onclick="fullScreen()" src="../sys/config/playButton.png" />
+          <img hidden id="endPicture" src="../sys/endPicture.png"/>
+          <img hidden id="picture" onclick="onLeftClick()" oncontextmenu="onRightClick()" />
+          <img hidden id="character" onclick="onLeftClick()" oncontextmenu="onRightClick()" />
+          <img hidden id="textWindow" onclick="onLeftClick()" oncontextmenu="onRightClick()" src="../sys/config/textWindow.png"/>
+          <p hidden id = "text" onclick="onLeftClick()" oncontextmenu="onRightClick()"></p>
+          <img hidden id ="btn_auto" onclick="auto()" src="../sys/config/btn_auto.png" />
+          <img hidden id ="btn_skip" onclick="skip()" src="../sys/config/btn_skip.png" />
+          <img hidden id ="btn_log" onclick="log()" src="../sys/config/btn_log.png" />
+          <img hidden id="logWindow" src="../sys/config/logWindow.png" />
+          <div hidden id="logText"></div>
+          <img hidden id="tapToNextBack" onclick="first()" src="../sys/black.png" />
+          <p hidden id = "tapToNext" onclick="first()"></p>
+          <p id = "loadText">読み込み中...。</p>
+          <img id="loading" src="../sys/config/loading.gif" />
+          <img hidden id ="fullScreen" onclick="fullScreen()" src="../sys/config/fullScreen.png" />
+          <video hidden id="video" playsinline></video>
+        </div>
+  </center>
+</body>
+</html>
