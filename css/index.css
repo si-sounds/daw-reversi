@@ -36,14 +36,12 @@ p{
 }
 #board{
 	position: absolute;
-	width: 40%;
-	height: 40%;
+	width: 40em;
+	height: 40em;
 	top: 0;
 	left: 0;
 }
-#disc{
+img{
 	position: absolute;
-	width: 4.5%;
-	top: 0;
-	left:0;
+	width: 4.5em;
 }
