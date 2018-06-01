@@ -2,6 +2,9 @@ const n = "pic/dummy.png";	//no disc
 const k = "pic/kuro.png";	//kuro
 const s = "pic/siro.png";	//shiro
 
+var turn = "●"; //黒から
+var turnNum = 1;
+
 var disc = [];
 for(var i = 1; i < 9; i++) {
 	disc[i] = [];
@@ -10,7 +13,7 @@ for(var i = 1; i < 9; i++) {
 		disc[i][j].id = "d" + i + j;
 		disc[i][j].value = i*10 + j;
 		disc[i][j].src = n;
-		disc[i][j].onclick = "change(this.value)";
+		disc[i][j].onclick = change(disc[i][j].value);
 		disc[i][j].style = "top:" + ((i-1)*5+0.2) + "em; left:" + ((j-1)*5+0.2) + "em;";
 		document.getElementById("disc").appendChild(disc[i][j]);
 	}
@@ -21,35 +24,60 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
-function change(disc){
+function change(coordinates){
+	return function(){
+		var x = (coordinates-coordinates%10)/10;
+		var y = coordinates%10;
+		if(disc[x][y].getAttribute("src") != n){return;}
+		console.log(turnNum + "手目:" + turn + " "+ x + " " + y);
 
-	console.log(disc);
 
-	/*var a = x;
-	var b = y;
+		if(turn == "●"){
+			changeK(x, y);
+		}else{
+			changeS(x, y);
+		}
 
-	do{
-		a = a+1;
-		if(a>7){break;}
-	}while(disc[1][1].src != disc[1][1].src);
-	if(a<8){
+		if(turn == "●"){
+			turn = "○";
+		}else{
+			turn = "●";
+		}
+		turnNum++;
+
+		/*
 		do{
-			a = a-1;
-			if(true){
-				changeK(a, b);
-			}else{
-				changeS(a, b);
-			}
-		}while(a == x);
-	}*/
+			a = a+1;
+			if(a>8){break;}
+		}while(disc[a][b].src != disc[x][y].src);
+
+		if(a<9){
+			do{
+				a = a-1;
+				if(turn){
+					changeS(a, b);
+				}else{
+					changeK(a, b);
+				}
+			}while(a == x);
+		}
+
+		if(turn){
+			turn = 0;
+		}else{
+			turn = 1;
+		}*/
+	};
+
+
 }
 
 function changeK(x, y){
-	disc[1][1].src = k;
+	disc[x][y].src = k;
 }
 
 function changeS(x, y){
-	disc[1][1].src = s;
+	disc[x][y].src = s;
 }
 
 
