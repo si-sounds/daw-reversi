@@ -8,8 +8,9 @@ for(var i = 1; i < 9; i++) {
 	for (var j = 1; j < 9; j++) {
 		disc[i][j] = document.createElement("img");
 		disc[i][j].id = "d" + i + j;
+		disc[i][j].value = i*10 + j;
 		disc[i][j].src = n;
-		disc[i][j].onclick = "change();";
+		disc[i][j].onclick = "change(this.value)";
 		disc[i][j].style = "top:" + ((i-1)*5+0.2) + "em; left:" + ((j-1)*5+0.2) + "em;";
 		document.getElementById("disc").appendChild(disc[i][j]);
 	}
@@ -20,8 +21,11 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
-function change(x, y){
-	var a = x;
+function change(disc){
+
+	console.log(disc);
+
+	/*var a = x;
 	var b = y;
 
 	do{
@@ -37,7 +41,7 @@ function change(x, y){
 				changeS(a, b);
 			}
 		}while(a == x);
-	}
+	}*/
 }
 
 function changeK(x, y){
