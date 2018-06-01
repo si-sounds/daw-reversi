@@ -28,52 +28,48 @@ function change(coordinates){
 	return function(){
 		var x = (coordinates-coordinates%10)/10;
 		var y = coordinates%10;
+
 		if(disc[x][y].getAttribute("src") != n){return;}
-		console.log(turnNum + "手目:" + turn + " "+ x + " " + y);
 
-
+	
 		if(turn == "●"){
 			changeK(x, y);
 		}else{
 			changeS(x, y);
 		}
-
-		if(turn == "●"){
-			turn = "○";
-		}else{
-			turn = "●";
-		}
-		turnNum++;
-
-		/*
-		do{
-			a = a+1;
-			if(a>8){break;}
-		}while(disc[a][b].src != disc[x][y].src);
-
-		if(a<9){
-			do{
-				a = a-1;
-				if(turn){
-					changeS(a, b);
-				}else{
-					changeK(a, b);
-				}
-			}while(a == x);
-		}
-
-		if(turn){
-			turn = 0;
-		}else{
-			turn = 1;
-		}*/
 	};
-
-
 }
 
 function changeK(x, y){
-	disc[x][y].src = k;
+	var a = x;
+	var b = y;
+	var loopCount = 0;
+
+	while(a < 8){
+		a++;
+		if(disc[a][b].getAttribute("src") == n){
+			a = x;
+			return;
+		}else if(disc[a][b].getAttribute("src") == k){
+			if(loopCount == 0){
+				a = x;
+			}
+			return;
+		}
+		loopCount++;
+		console.log(loopCount);
+	}
+	console.log("hello");
+	if(a != x){
+		do{
+			a--;
+			disc[a][b].src = k;
+		}while(a == x);
+		
+		console.log(turnNum + "手目:" + turn + " "+ x + " " + y);
+		turn = "○";
+		turnNum++;
+	}
 }
 
 function changeS(x, y){
