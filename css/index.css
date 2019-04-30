@@ -47,3 +47,10 @@ img{
 	margin: auto;
 	overflow: auto;  	
 }
+#turn{
+	position: absolute;
+	width: 40em;
+	height: 40em;
+	top: 41em;
+	left: 17em;
+}
