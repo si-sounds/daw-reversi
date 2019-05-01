@@ -79,7 +79,6 @@ function change2(y, x, t, cpu){
 					document.getElementById("turn").innerHTML = "置ける場所がありません。パスします";
 				}
 				document.getElementById("turn").innerHTML = "あなたの番";
-				console.log(CPU(0));
 				if(CPU(0,k) == 0){
 					if(CPU(0,s) == 0){
 						result();
@@ -90,6 +89,7 @@ function change2(y, x, t, cpu){
 						document.getElementById("turn").innerHTML = "CPU思考中...";
 						sleep(1.5).done(function(){
 							CPU(1,s);
+							document.getElementById("turn").innerHTML = "あなたの番";
 						});
 					});
 				}	
