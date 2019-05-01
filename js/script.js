@@ -56,12 +56,12 @@ function changeCPU(coordinates){
 }
 
 function change2(y, x, t, cpu){
-	var tmp = 0;
+	var id = 0;
 	if(check(y, x, t, cpu) > 0){
-		tmp = y*10 + x;
-		$("#d"+tmp).fadeOut(0);
+		id = y*10 + x;
+		$("#d"+id).fadeOut(0);
 		disc[y][x].src = t;		
-		$("#d"+tmp).fadeIn(300);
+		$("#d"+id).fadeIn(300);
 
 		document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目:" + turn + " "+ x + " " + y));
 		document.getElementById("log").appendChild(document.createElement("br"));
@@ -101,7 +101,7 @@ function turnControl(){
 				turnControl();
 			});
 		}else{
-			document.getElementById("turn").innerHTML = "あなたの番";
+			document.getElementById("turn").innerHTML = "あなたの番" + CPU(0,k);
 			turn = "●";
 		}
 	}
@@ -132,16 +132,15 @@ function checkR(y, x, t, cpu){
 	while(a < 8){
 		a++;
 		if(disc[b][a].getAttribute("src") == n){
-			a = x;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			a--;
 			while(a != x){
 				if(cpu == 0){
-					tmp = y*10 + a;
-					$("#d"+tmp).fadeOut(400, In(y, a, t, tmp));
+					tmp = b*10 + a;
+					$("#d"+tmp).fadeOut(400, In(b, a, t, tmp));
 				}
-				c += BoardCheck(y, a);
+				c += BoardCheck(b, a);
 				a--;
 			}
 			return c;
@@ -158,16 +157,15 @@ function checkL(y, x, t, cpu){
 	while(a > 1){
 		a--;
 		if(disc[b][a].getAttribute("src") == n){
-			a = x;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			a++;
 			while(a != x){
 				if(cpu == 0){
-					tmp = y*10 + a;
-					$("#d"+tmp).fadeOut(400, In(y, a, t, tmp));
+					tmp = b*10 + a;
+					$("#d"+tmp).fadeOut(400, In(b, a, t, tmp));
 				}
-				c += BoardCheck(y, a);
+				c += BoardCheck(b, a);
 				a++;
 			}
 			return c;
@@ -184,16 +182,15 @@ function checkU(y, x, t, cpu){
 	while(b < 8){
 		b++;
 		if(disc[b][a].getAttribute("src") == n){
-			b = y;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			b--;
 			while(b != y){
 				if(cpu == 0){
-					tmp = b*10 + x;
-					$("#d"+tmp).fadeOut(400, In(b, x, t, tmp));
+					tmp = b*10 + a;
+					$("#d"+tmp).fadeOut(400, In(b, a, t, tmp));
 				}
-				c += BoardCheck(b, x);
+				c += BoardCheck(b, a);
 				b--;
 			}
 			return c;
@@ -210,16 +207,15 @@ function checkD(y, x, t, cpu){
 	while(b > 1){
 		b--;
 		if(disc[b][a].getAttribute("src") == n){
-			b = y;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			b++;
 			while(b != y){
 				if(cpu == 0){
-					tmp = b*10 + x;
-					$("#d"+tmp).fadeOut(400, In(b, x, t, tmp));
+					tmp = b*10 + a;
+					$("#d"+tmp).fadeOut(400, In(b, a, t, tmp));
 				}
-				c += BoardCheck(b, x);
+				c += BoardCheck(b, a);
 				b++;
 			}
 			return c;
@@ -237,8 +233,6 @@ function checkRD(y, x, t, cpu){
 		a++;
 		b++;
 		if(disc[b][a].getAttribute("src") == n){
-			a = x;
-			b = y;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			a--;
@@ -267,8 +261,6 @@ function checkRU(y, x, t, cpu){
 		a++;
 		b--;
 		if(disc[b][a].getAttribute("src") == n){
-			a = x;
-			b = y;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			a--;
@@ -297,8 +289,6 @@ function checkLD(y, x, t, cpu){
 		a--;
 		b++;
 		if(disc[b][a].getAttribute("src") == n){
-			a = x;
-			b = y;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			a++;
@@ -327,8 +317,6 @@ function checkLU(y, x, t, cpu){
 		a--;
 		b--;
 		if(disc[b][a].getAttribute("src") == n){
-			a = x;
-			b = y;
 			return 0;
 		}else if(disc[b][a].getAttribute("src") == t){
 			a++;
@@ -379,7 +367,7 @@ function BoardCheck(y, x){
 }
 
 function CPU(mode, t){
-	var tmp = 1000;
+	var tmp = 100;
 	var ans = 0;
 	for(var i = 1; i < 9; i++){
 		for(var j = 1; j < 9; j++){
@@ -391,10 +379,8 @@ function CPU(mode, t){
 			}
 		}
 	}
-	if(mode == 1){
-		if(ans != 0){
-			changeCPU(ans);
-		}
+	if(mode == 1 && ans != 0){
+		changeCPU(ans);
 	}
 	return ans;
 }
@@ -420,13 +406,12 @@ function result(){
 		}
 	}
 	if(countK > countS){
-		document.getElementById("turn").innerHTML = "あなたの勝ち！";
+		document.getElementById("turn").innerHTML = "あなたの勝ち！ " + "●" + countK + " : ○" + countS;
 	}else if(countS > countK){
-		document.getElementById("turn").innerHTML = "あなたの負け！";
+		document.getElementById("turn").innerHTML = "あなたの負け！ " + "●" + countK + " : ○" + countS;
 	}else{
-		document.getElementById("turn").innerHTML = "引き分け！";
+		document.getElementById("turn").innerHTML = "引き分け！ " + "●" + countK + " : ○" + countS;
 	}
 
-	document.getElementById("log").appendChild(document.createTextNode("●" + countK + " : ○" + countS));
-
+	//document.getElementById("turn").appendChild(document.createTextNode("●" + countK + " : ○" + countS));
 }
