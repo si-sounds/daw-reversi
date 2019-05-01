@@ -65,42 +65,49 @@ function change2(y, x, t, cpu){
 
 		document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目:" + turn + " "+ x + " " + y));
 		document.getElementById("log").appendChild(document.createElement("br"));
-
-		if(turn == "●"){
-			turn = "○";
-			document.getElementById("turn").innerHTML = "CPU思考中...";
-			sleep(1.5).done(function(){
-
-				if(CPU(1,s) == 0){
-					if(CPU(0,k) == 0){
-						result();
-						return;
-					}
-					document.getElementById("turn").innerHTML = "置ける場所がありません。パスします";
-				}
-				document.getElementById("turn").innerHTML = "あなたの番";
-				if(CPU(0,k) == 0){
-					if(CPU(0,s) == 0){
-						result();
-						return;
-					}
-					document.getElementById("turn").innerHTML = "置ける場所がありません。パスします";
-					sleep(3).done(function(){
-						document.getElementById("turn").innerHTML = "CPU思考中...";
-						sleep(1.5).done(function(){
-							CPU(1,s);
-							document.getElementById("turn").innerHTML = "あなたの番";
-						});
-					});
-				}	
-				
-			});
-		}else{
-			turn = "●";
-		}
-		turnNum++;
+		
+		turnControl();		
 	}
 }
+
+function turnControl(){
+	if(turn == "●"){
+		turn = "○";
+		if(CPU(0,s) == 0){
+			if(CPU(0,k) == 0){
+				result();
+				return;
+			}
+			document.getElementById("turn").innerHTML = "CPU:置ける場所がありません。パスします";
+			sleep(1.5).done(function(){
+				turn = "●";
+			});
+		}else{
+			document.getElementById("turn").innerHTML = "CPU思考中...";
+			sleep(1.5).done(function(){
+				CPU(1,s);
+				turn = "●";
+			});
+		}
+	}else{
+		if(CPU(0,k) == 0){
+			if(CPU(0,s) == 0){
+				result();
+				return;
+			}
+			document.getElementById("turn").innerHTML = "あなた:置ける場所がありません。パスします";
+			sleep(1.5).done(function(){
+				turn = "●";
+				turnControl();
+			});
+		}else{
+			document.getElementById("turn").innerHTML = "あなたの番";
+			turn = "●";
+		}
+	}
+	turnNum++;
+}
+
 
 function check(y, x, t, cpu){
 	var sum = 0;
