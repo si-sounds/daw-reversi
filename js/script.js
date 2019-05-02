@@ -24,7 +24,6 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
-
 function placement(i,j,orient){
 	if(orient == 1){
 		disc[i][j].style = "top:" + ((i-1)*11.2+3.7) + "vh; left:" + ((j-1)*11.2+3.7) + "vh;";
