@@ -51,12 +51,12 @@ function change2(y, x, t, cpu){
 		document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目:" + turn + " "+ x + " " + y));
 		document.getElementById("log").appendChild(document.createElement("br"));
 		
-		if(turn == "●"){
-			turn = "○";
-		}else{
-			turn = "●";
-		}
 		sleep(1).done(function(){
+			if(turn == "●"){
+				turn = "○";
+			}else{
+				turn = "●";
+			}
 			turnControl();		
 		});
 	}
@@ -73,14 +73,14 @@ function turnControl(){
 				return;
 			}
 			document.getElementById("turn").innerHTML = "CPU:置ける場所がありません。パスします";
-			sleep(1.5).done(function(){
+			sleep(5).done(function(){
 				turn = "●";
+				turnControl();
 			});
 		}else{
 			document.getElementById("turn").innerHTML = "CPU思考中...";
 			sleep(0.5).done(function(){
 				CPU(1,s);
-				console.log(CPU(0,s));
 			});
 		}
 	}else{
@@ -93,7 +93,7 @@ function turnControl(){
 				return;
 			}
 			document.getElementById("turn").innerHTML = "あなた:置ける場所がありません。パスします";
-			sleep(1.5).done(function(){
+			sleep(5).done(function(){
 				turn = "○";
 				turnControl();
 			});
@@ -371,10 +371,19 @@ function CPU(mode, t){
 			if(disc[i][j].getAttribute("src") != n){
 
 			}else if(tmp > check(i,j,t,1) && check(i,j,t,1) > 0){
-				tmp = check(i,j,t,1);
-				y = i;
-				x = j;
-				ans = 1;
+				if(ans == 0){
+					tmp = check(i,j,t,1);
+					y = i;
+					x = j;
+					ans++;
+				}else if(i == 1 && j == 1 || i == 1 && j == 8 || i == 8 && j == 1 || i == 8 && j == 8){
+					//do nothing
+				}else{
+					tmp = check(i,j,t,1);
+					y = i;
+					x = j;
+					ans++;
+				}
 			}
 		}
 	}
