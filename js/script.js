@@ -31,7 +31,6 @@ function change(coordinates){
 		var x = coordinates%10;
 
 		if(disc[y][x].getAttribute("src") != n){return;}
-
 	
 		if(turn == "●"){
 			change2(y, x, k, 0);
@@ -39,20 +38,6 @@ function change(coordinates){
 			//change2(y, x, s, 0);
 		}
 	};
-}
-
-function changeCPU(coordinates){
-	var y = (coordinates-coordinates%10)/10;
-	var x = coordinates%10;
-
-	if(disc[y][x].getAttribute("src") != n){return;}
-
-
-	if(turn == "●"){
-		change2(y, x, k, 0);
-	}else{
-		change2(y, x, s, 0);
-	}
 }
 
 function change2(y, x, t, cpu){
@@ -66,16 +51,25 @@ function change2(y, x, t, cpu){
 		document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目:" + turn + " "+ x + " " + y));
 		document.getElementById("log").appendChild(document.createElement("br"));
 		
-		turnControl();		
+		if(turn == "●"){
+			turn = "○";
+		}else{
+			turn = "●";
+		}
+		sleep(1).done(function(){
+			turnControl();		
+		});
 	}
 }
 
 function turnControl(){
-	if(turn == "●"){
-		turn = "○";
+	if(turn == "○"){
 		if(CPU(0,s) == 0){
 			if(CPU(0,k) == 0){
-				result();
+				document.getElementById("turn").innerHTML = "勝敗判定中...";
+				sleep(1).done(function(){
+					result();				
+				});
 				return;
 			}
 			document.getElementById("turn").innerHTML = "CPU:置ける場所がありません。パスします";
@@ -84,30 +78,31 @@ function turnControl(){
 			});
 		}else{
 			document.getElementById("turn").innerHTML = "CPU思考中...";
-			sleep(1.5).done(function(){
+			sleep(0.5).done(function(){
 				CPU(1,s);
-				turn = "●";
+				console.log(CPU(0,s));
 			});
 		}
 	}else{
 		if(CPU(0,k) == 0){
 			if(CPU(0,s) == 0){
-				result();
+				document.getElementById("turn").innerHTML = "勝敗判定中...";
+				sleep(1).done(function(){
+					result();				
+				});
 				return;
 			}
 			document.getElementById("turn").innerHTML = "あなた:置ける場所がありません。パスします";
 			sleep(1.5).done(function(){
-				turn = "●";
+				turn = "○";
 				turnControl();
 			});
 		}else{
-			document.getElementById("turn").innerHTML = "あなたの番" + CPU(0,k);
-			turn = "●";
+			document.getElementById("turn").innerHTML = "あなたの番";
 		}
 	}
 	turnNum++;
 }
-
 
 function check(y, x, t, cpu){
 	var sum = 0;
@@ -294,9 +289,9 @@ function checkLD(y, x, t, cpu){
 			a++;
 			b--;
 			while(a != x){
-				if(cpu == 0){	
+				if(cpu == 0){
 					tmp = b*10 + a;
-					$("#d"+tmp).fadeOut(400, In(b, a, t, tmp));				
+					$("#d"+tmp).fadeOut(400, In(b, a, t, tmp));		
 				}
 				c += BoardCheck(b, a);
 				a++;
@@ -369,18 +364,22 @@ function BoardCheck(y, x){
 function CPU(mode, t){
 	var tmp = 100;
 	var ans = 0;
+	var y = 0;
+	var x = 0;
 	for(var i = 1; i < 9; i++){
 		for(var j = 1; j < 9; j++){
 			if(disc[i][j].getAttribute("src") != n){
 
 			}else if(tmp > check(i,j,t,1) && check(i,j,t,1) > 0){
 				tmp = check(i,j,t,1);
-				ans = i*10 + j;
+				y = i;
+				x = j;
+				ans = 1;
 			}
 		}
 	}
 	if(mode == 1 && ans != 0){
-		changeCPU(ans);
+		change2(y, x, t, 0);
 	}
 	return ans;
 }
@@ -406,11 +405,11 @@ function result(){
 		}
 	}
 	if(countK > countS){
-		document.getElementById("turn").innerHTML = "あなたの勝ち！ " + "●" + countK + " : ○" + countS;
+		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " あなたの勝ち！";
 	}else if(countS > countK){
-		document.getElementById("turn").innerHTML = "あなたの負け！ " + "●" + countK + " : ○" + countS;
+		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " あなたの負け！";
 	}else{
-		document.getElementById("turn").innerHTML = "引き分け！ " + "●" + countK + " : ○" + countS;
+		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " 引き分け！";
 	}
 
 	//document.getElementById("turn").appendChild(document.createTextNode("●" + countK + " : ○" + countS));
