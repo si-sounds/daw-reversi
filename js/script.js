@@ -15,8 +15,7 @@ for(var i = 1; i < 9; i++) {
 		disc[i][j].src = n;
 
 		disc[i][j].onclick = change(disc[i][j].value);
-		disc[i][j].style = "top:" + ((i-1)*5+0.2) + "em; left:" + ((j-1)*5+0.2) + "em;";
-		document.getElementById("disc").appendChild(disc[i][j]);
+		placement(i,j,orientCheck());
 	}
 }
 
@@ -24,6 +23,16 @@ disc[4][4].src = s;
 disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
+
+
+function placement(i,j,orient){
+	if(orient == 1){
+		disc[i][j].style = "top:" + ((i-1)*11.2+3.7) + "vh; left:" + ((j-1)*11.2+3.7) + "vh;";
+	}else{
+		disc[i][j].style = "top:" + ((i-1)*12+2.5) + "vw; left:" + ((j-1)*12+2.5) + "vw;";
+	}
+	document.getElementById("disc").appendChild(disc[i][j]);
+}
 
 function change(coordinates){
 	return function(){
@@ -442,6 +451,12 @@ function result(){
 	}else{
 		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " 引き分け！";
 	}
+}
 
-	//document.getElementById("turn").appendChild(document.createTextNode("●" + countK + " : ○" + countS));
+function orientCheck(){
+    if(window.innerHeight > window.innerWidth) {
+		return 0;	        
+    }else{
+    	return 1;
+    }
 }

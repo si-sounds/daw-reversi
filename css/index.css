@@ -18,10 +18,7 @@ body{
 	font-family: sans-serif;
 	overflow: hidden;
 }
-img{
-	position: absolute;
-	width: 4.5em;
-}
+
 .relative{
 	position: relative;
 }
@@ -30,27 +27,67 @@ img{
 	display:block;
 	padding-bottom:100%;
 }
-#board{
-	position: absolute;
-	width: 40em;
-	height: 40em;
-	top: 0;
-	left: 0;
-}
-#log{
-	position: absolute;
-	width: 40em;
-	height: 40em;
-	top: 0;
-	left: 50em;
+@media (orientation: landscape){
+	img{
+		position: absolute;
+		width: 10vh;
+	}
+	#board{
+		position: absolute;
+		width: 90vh;
+		height: 90vh;
+		top: 3vh;
+		left: 3vh;
+	}
+	#log{
+		position: absolute;
+		width: 50vh;
+		height: 90vh;
+		top: 3vh;
+		left: 120vh;
 
-	margin: auto;
-	overflow: auto;  	
-}
-#turn{
-	position: absolute;
-	width: 40em;
-	height: 40em;
-	top: 41em;
-	left: 17em;
+		margin: auto;
+		overflow: auto;
+		font-size: 3vh;
+	}
+	#turn{
+		position: absolute;
+		width: 90vh;
+		height: 10vh;
+		top: 94vh;
+		left: 0;
+		font-size: 3vh;
+	}
+}	
+@media (orientation: portrait){
+	img{
+		position: absolute;
+		width: 11vw;
+	}
+	#board{
+		position: absolute;
+		width: 96vw;
+		height: 96vw;
+		top: 2vw;
+		left: 2vw;
+	}
+	#log{
+		position: absolute;
+		width: 96vw;
+		height: 40vw;
+		top: 110vw;
+		left: 2vw;
+
+		margin: auto;
+		overflow: auto;
+		font-size: 3vw;
+	}
+	#turn{
+		position: absolute;
+		width: 96vw;
+		height: 40vw;
+		top: 100vw;
+		left: 2vw;
+		font-size: 4vw;
+	}
 }
