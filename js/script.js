@@ -73,7 +73,7 @@ function turnControl(){
 				return;
 			}
 			document.getElementById("turn").innerHTML = "CPU:置ける場所がありません。パスします";
-			sleep(5).done(function(){
+			sleep(3.5).done(function(){
 				turn = "●";
 				turnControl();
 			});
@@ -93,7 +93,7 @@ function turnControl(){
 				return;
 			}
 			document.getElementById("turn").innerHTML = "あなた:置ける場所がありません。パスします";
-			sleep(5).done(function(){
+			sleep(3.5).done(function(){
 				turn = "○";
 				turnControl();
 			});
@@ -105,10 +105,26 @@ function turnControl(){
 }
 
 function check(y, x, t, cpu){
-	var sum = 0;
-	sum = checkU(y, x, t, cpu) + checkD(y, x, t, cpu) + checkL(y, x, t, cpu) + checkR(y, x, t, cpu) + checkRD(y, x, t, cpu) + checkRU(y, x, t, cpu) + checkLD(y, x, t, cpu) + checkLU(y, x, t, cpu);
+	var score = 100;
+	var tmp = 0;
+	tmp = checkU(y, x, t, cpu) + checkD(y, x, t, cpu) + checkL(y, x, t, cpu) + checkR(y, x, t, cpu) + checkRD(y, x, t, cpu) + checkRU(y, x, t, cpu) + checkLD(y, x, t, cpu) + checkLU(y, x, t, cpu);
+	score -= tmp;
+	if(score == 100){
+		score = 0;
+		return score;
+	}
 
-	return sum;
+	if(x==1 && y==1 || x==1 && y==8 || x==8 && y==1 || x==8 && y==8){
+		score += 5;
+	}
+	if(x==1 && y==2 || x ==2 && y==1 || x==7 && y==1 || x==8 && y==2 || x==1 && y==7 || x==2 && y==8 || x==7 && y==8 || x==8 && y==7){
+		score -= 5;
+	}
+	if(x==2 && y==2 || x==7 && y==2 || x==2 && y==7 || x==7 && y==7){
+		score -= 5;
+	}
+
+	return score;
 }
 
 function In(y, x, t, tmp){
@@ -362,7 +378,7 @@ function BoardCheck(y, x){
 }
 
 function CPU(mode, t){
-	var tmp = 100;
+	var tmp = 0;
 	var ans = 0;
 	var y = 0;
 	var x = 0;
@@ -370,25 +386,17 @@ function CPU(mode, t){
 		for(var j = 1; j < 9; j++){
 			if(disc[i][j].getAttribute("src") != n){
 
-			}else if(tmp > check(i,j,t,1) && check(i,j,t,1) > 0){
-				if(ans == 0){
-					tmp = check(i,j,t,1);
-					y = i;
-					x = j;
-					ans++;
-				}else if(i == 1 && j == 1 || i == 1 && j == 8 || i == 8 && j == 1 || i == 8 && j == 8){
-					//do nothing
-				}else{
-					tmp = check(i,j,t,1);
-					y = i;
-					x = j;
-					ans++;
-				}
+			}else if(tmp < check(i,j,t,1)){
+				tmp = check(i,j,t,1);
+				y = i;
+				x = j;
+				ans = 1;
 			}
 		}
 	}
 	if(mode == 1 && ans != 0){
 		change2(y, x, t, 0);
+		console.log(tmp);
 	}
 	return ans;
 }
