@@ -117,11 +117,25 @@ function check(y, x, t, cpu){
 	if(x==1 && y==1 || x==1 && y==8 || x==8 && y==1 || x==8 && y==8){
 		score += 10;
 	}
-	if(x==1 && y==2 || x ==2 && y==1 || x==7 && y==1 || x==8 && y==2 || x==1 && y==7 || x==2 && y==8 || x==7 && y==8 || x==8 && y==7){
-		score -= 10;
+	if(x==1 && y==2 || x ==2 && y==1 || x==2 && y==2){
+		if(disc[1][1].getAttribute("src") == n){
+			score -= 10;
+		}
 	}
-	if(x==2 && y==2 || x==7 && y==2 || x==2 && y==7 || x==7 && y==7){
-		score -= 10;
+	if(x==7 && y==1 || x==8 && y==2 || x==7 && y==2){
+		if(disc[1][8].getAttribute("src") == n){
+			score -= 10;
+		}
+	}
+	if(x==1 && y==7 || x==2 && y==8 || x==2 && y==7){
+		if(disc[8][1].getAttribute("src") == n){
+			score -= 10;
+		}		
+	}
+	if(x==7 && y==8 || x==8 && y==7 || x==7 && y==7){
+		if(disc[8][8].getAttribute("src") == n){
+			score -= 10;
+		}
 	}
 
 	return score;
