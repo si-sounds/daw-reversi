@@ -25,6 +25,11 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
+$("#select").fadeOut(0);
+$("#cant").fadeOut(0);
+
+
+
 function placement(i,j,orient){
 	if(orient == 1){
 		disc[i][j].style = "top:" + ((i-1)*11.2+3.7) + "vh; left:" + ((j-1)*11.2+3.7) + "vh;";
@@ -87,8 +92,13 @@ function turnControl(){
 				});
 				return;
 			}
-			document.getElementById("turn").innerHTML = "CPU:置ける場所がありません。パスします";
+			$("#select").fadeIn();
+			document.getElementById("turn").innerHTML = "CPU思考中...";
+			$("#cant").fadeIn();
+			document.getElementById("cant").innerHTML = "CPU:置ける場所がありません。<br>パスします";
 			sleep(3.5).done(function(){
+				$("#select").fadeOut();
+				$("#cant").fadeOut();
 				turn = "●";
 				turnControl();
 			});
@@ -107,8 +117,13 @@ function turnControl(){
 				});
 				return;
 			}
-			document.getElementById("turn").innerHTML = "あなた:置ける場所がありません。パスします";
+			$("#select").fadeIn();
+			document.getElementById("turn").innerHTML = "あなたの番";
+			$("#cant").fadeIn();
+			document.getElementById("cant").innerHTML = "あなた:置ける場所がありません。<br>パスします";
 			sleep(3.5).done(function(){
+				$("#select").fadeOut();
+				$("#cant").fadeOut();
 				turn = "○";
 				turnControl();
 			});

@@ -39,13 +39,31 @@ body{
 		top: 3vh;
 		left: 3vh;
 	}
+	#select{
+		position: absolute;
+		width: 50vh;
+		height: 30vh;
+		top: 33vh;
+		left: 23vh;
+	}
+	#senkou{
+		position: absolute;
+		width: 18vh;
+		top: 44vh;
+		left: 28vh;
+	}
+	#koukou{
+		position: absolute;
+		width: 18vh;
+		top: 44vh;
+		left: 50vh;		
+	}
 	#log{
 		position: absolute;
 		width: 50vh;
 		height: 90vh;
 		top: 3vh;
 		left: 120vh;
-
 		margin: auto;
 		overflow: auto;
 		font-size: 3vh;
@@ -55,7 +73,15 @@ body{
 		width: 90vh;
 		height: 10vh;
 		top: 94vh;
-		left: 0;
+		left: 3vh;
+		font-size: 3vh;
+	}
+	#cant{
+		position: absolute;
+		width: 90vh;
+		height: 10vh;
+		top: 46vh;
+		left: 3vh;
 		font-size: 3vh;
 	}
 }	
@@ -70,6 +96,25 @@ body{
 		height: 96vw;
 		top: 2vw;
 		left: 2vw;
+	}
+	#select{
+		position: absolute;
+		width: 50vw;
+		height: 30vw;
+		top: 35vw;
+		left: 25vw;
+	}
+	#senkou{
+		position: absolute;
+		width: 18vw;
+		top: 46vw;
+		left: 30vw;
+	}
+	#koukou{
+		position: absolute;
+		width: 18vw;
+		top: 46vw;
+		left: 52vw;		
 	}
 	#log{
 		position: absolute;
