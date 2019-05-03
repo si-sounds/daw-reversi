@@ -25,8 +25,8 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
-$("#select").fadeOut(0);
-$("#cant").fadeOut(0);
+//$("#select").fadeOut(0);
+//$("#cant").fadeOut(0);
 
 
 
