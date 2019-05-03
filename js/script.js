@@ -4,6 +4,7 @@ const s = "pic/siro.png";	//shiro
 
 var turn = "●"; //黒から
 var turnNum = 1;
+var click = 0;
 
 var disc = [];
 for(var i = 1; i < 9; i++) {
@@ -39,6 +40,10 @@ function change(coordinates){
 		var x = coordinates%10;
 
 		if(disc[y][x].getAttribute("src") != n){return;}
+
+		if(click == 1){
+			return;
+		}
 	
 		if(turn == "●"){
 			change2(y, x, k, 0);
@@ -51,6 +56,7 @@ function change(coordinates){
 function change2(y, x, t, cpu){
 	var id = 0;
 	if(check(y, x, t, cpu) > 0){
+		click = 1;
 		id = y*10 + x;
 		$("#d"+id).fadeOut(0);
 		disc[y][x].src = t;		
@@ -65,7 +71,8 @@ function change2(y, x, t, cpu){
 			}else{
 				turn = "●";
 			}
-			turnControl();		
+			click = 0;
+			turnControl();
 		});
 	}
 }
@@ -75,7 +82,7 @@ function turnControl(){
 		if(CPU(0,s) == 0){
 			if(CPU(0,k) == 0){
 				document.getElementById("turn").innerHTML = "勝敗判定中...";
-				sleep(1).done(function(){
+				sleep(0.5).done(function(){
 					result();				
 				});
 				return;
@@ -95,7 +102,7 @@ function turnControl(){
 		if(CPU(0,k) == 0){
 			if(CPU(0,s) == 0){
 				document.getElementById("turn").innerHTML = "勝敗判定中...";
-				sleep(1).done(function(){
+				sleep(0.5).done(function(){
 					result();				
 				});
 				return;
