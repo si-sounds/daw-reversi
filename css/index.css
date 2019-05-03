@@ -133,4 +133,12 @@ body{
 		left: 2vw;
 		font-size: 4vw;
 	}
+	#cant{
+		position: absolute;
+		width: 90vw;
+		height: 10vw;
+		top: 46vw;
+		left: 6vw;
+		font-size: 3vw;
+	}
 }
