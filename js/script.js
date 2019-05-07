@@ -9,6 +9,8 @@ var click = 0;
 var cpu;
 var player;
 
+var level;
+
 var disc = [];
 for(var i = 1; i < 9; i++) {
 	disc[i] = [];
@@ -35,8 +37,8 @@ disc[5][5].src = s;
 //$("#2").fadeOut(0);
 //$("#3").fadeOut(0);
 
-//$("#senkou").fadeOut(0);
-//$("#koukou").fadeOut(0);
+$("#senkou").fadeOut(0);
+$("#koukou").fadeOut(0);
 $("#cant").fadeOut(0);
 
 function restart(){
@@ -52,7 +54,12 @@ for(var i = 1; i < 9; i++) {
 
 	turn = "●";
 	turnNum = 1;
-	click = 0;
+	click = 1;
+}
+
+function selectLevel(input){
+	level = input;
+	console.log("[selected](level) "+level);
 }
 
 function selectTurn(input){
@@ -65,11 +72,6 @@ function selectTurn(input){
 	}
 	console.log("[selected](turn) cpu:"+cpu+"  player:"+player);
 }
-
-function selectLevel(input){
-	console.log("[selected](level) "+input);
-}
-
 
 function placement(i,j,orient){
 	if(orient == 1){
@@ -125,8 +127,8 @@ function change2(y, x, t, cpu){
 
 function turnControl(){
 	if(turn == "○"){
-		if(CPU(0,s) == 0){
-			if(CPU(0,k) == 0){
+		if(checkAll(s) == 0){
+			if(checkAll(k) == 0){
 				document.getElementById("turn").innerHTML = "勝敗判定中...";
 				sleep(0.5).done(function(){
 					result();				
@@ -146,12 +148,12 @@ function turnControl(){
 		}else{
 			document.getElementById("turn").innerHTML = "CPU思考中...";
 			sleep(0.5).done(function(){
-				CPU(1,s);
+				CPU(s);
 			});
 		}
 	}else{
-		if(CPU(0,k) == 0){
-			if(CPU(0,s) == 0){
+		if(checkAll(k) == 0){
+			if(checkAll(s) == 0){
 				document.getElementById("turn").innerHTML = "勝敗判定中...";
 				sleep(0.5).done(function(){
 					result();				
@@ -205,7 +207,7 @@ function check(y, x, t, cpu){
 	}
 	if(x==7 && y==8 || x==8 && y==7 || x==7 && y==7){
 		if(disc[8][8].getAttribute("src") == n){
-			score -= 10;
+			score -= 15;
 		}
 	}
 
@@ -462,9 +464,8 @@ function BoardCheck(y, x){
 	return count;
 }
 
-function CPU(mode, t){
+function CPU(t){
 	var tmp = 0;
-	var ans = 0;
 	var y = 0;
 	var x = 0;
 	for(var i = 1; i < 9; i++){
@@ -475,15 +476,25 @@ function CPU(mode, t){
 				tmp = check(i,j,t,1);
 				y = i;
 				x = j;
-				ans = 1;
 			}
 		}
 	}
-	if(mode == 1 && ans != 0){
-		change2(y, x, t, 0);
-		console.log(tmp);
+	change2(y, x, t, 0);
+	console.log(tmp);
+	return;
+}
+
+function checkAll(t){
+	for(var i = 1; i < 9; i++){
+		for(var j = 1; j < 9; j++){
+			if(disc[i][j].getAttribute("src") != n){
+
+			}else if(0 < check(i,j,t,1)){
+				return 1;
+			}
+		}
 	}
-	return ans;
+	return 0;
 }
 
 function sleep(sec){
