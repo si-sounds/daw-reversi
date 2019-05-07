@@ -4,7 +4,7 @@ const s = "pic/siro.png";	//shiro
 
 var turn = "●"; //黒から
 var turnNum = 1;
-var click = 0;
+var click = 1;
 
 var cpu;
 var player;
@@ -32,10 +32,6 @@ disc[5][5].src = s;
 
 
 
-//$("#select").fadeOut(0);
-//$("#1").fadeOut(0);
-//$("#2").fadeOut(0);
-//$("#3").fadeOut(0);
 
 $("#senkou").fadeOut(0);
 $("#koukou").fadeOut(0);
@@ -59,17 +55,30 @@ for(var i = 1; i < 9; i++) {
 
 function selectLevel(input){
 	level = input;
+	$("#l1").fadeOut();
+	$("#l2").fadeOut();
+	$("#l3").fadeOut();
+	$("#senkou").fadeIn();
+	$("#koukou").fadeIn();
 	console.log("[selected](level) "+level);
+	document.getElementById("log").appendChild(document.createTextNode("レベル："+level));
+	document.getElementById("log").appendChild(document.createElement("br"));
 }
 
 function selectTurn(input){
+
 	if(input == 0){
 		cpu = "○";
 		player = "●";
+		click = 0;
+		document.getElementById("turn").innerHTML = "あなたの番";
 	}else{
 		cpu = "●";
 		player = "○";
 	}
+	$("#senkou").fadeOut();
+	$("#koukou").fadeOut();
+	$("#select").fadeOut();
 	console.log("[selected](turn) cpu:"+cpu+"  player:"+player);
 }
 
@@ -93,10 +102,10 @@ function change(coordinates){
 			return;
 		}
 	
-		if(turn == "●"){
+		if(turn == "●" && player == "●"){
 			change2(y, x, k, 0);
-		}else{
-			//change2(y, x, s, 0);
+		}else if(turn == "○" && player == "○"){
+			change2(y, x, s, 0);
 		}
 	};
 }
@@ -184,6 +193,10 @@ function check(y, x, t, cpu){
 	score -= tmp;
 	if(score == 100){
 		score = 0;
+		return score;
+	}
+
+	if(level == 1){
 		return score;
 	}
 
@@ -468,17 +481,50 @@ function CPU(t){
 	var tmp = 0;
 	var y = 0;
 	var x = 0;
-	for(var i = 1; i < 9; i++){
-		for(var j = 1; j < 9; j++){
-			if(disc[i][j].getAttribute("src") != n){
 
-			}else if(tmp < check(i,j,t,1)){
-				tmp = check(i,j,t,1);
-				y = i;
-				x = j;
+	switch(level){
+		case 1:
+			for(var i = 1; i < 9; i++){
+				for(var j = 1; j < 9; j++){
+					if(disc[i][j].getAttribute("src") != n){
+
+					}else if(tmp < check(i,j,t,1)){
+						tmp = check(i,j,t,1);
+						y = i;
+						x = j;
+					}
+				}
 			}
-		}
+		break;
+		case 2:
+			for(var i = 1; i < 9; i++){
+				for(var j = 1; j < 9; j++){
+					if(disc[i][j].getAttribute("src") != n){
+
+					}else if(tmp < check(i,j,t,1)){
+						tmp = check(i,j,t,1);
+						y = i;
+						x = j;
+					}
+				}
+			}
+		break;
+		case 3:
+			for(var i = 1; i < 9; i++){
+				for(var j = 1; j < 9; j++){
+					if(disc[i][j].getAttribute("src") != n){
+
+					}else if(tmp < check(i,j,t,1)){
+						tmp = check(i,j,t,1);
+						y = i;
+						x = j;
+					}
+				}
+			}
+		break;
 	}
+
+
 	change2(y, x, t, 0);
 	console.log(tmp);
 	return;
