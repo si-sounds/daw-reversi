@@ -6,6 +6,9 @@ var turn = "●"; //黒から
 var turnNum = 1;
 var click = 0;
 
+var cpu;
+var player;
+
 var disc = [];
 for(var i = 1; i < 9; i++) {
 	disc[i] = [];
@@ -25,9 +28,21 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
-$("#select").fadeOut(0);
+//$("#select").fadeOut(0);
 $("#cant").fadeOut(0);
 
+function select(sel){
+	return function(){
+		if(sel == 0){
+			cpu = "○";
+			player = "●";
+		}else{
+			cpu = "●";
+			player = "○";
+		}
+		console.log("cpu:"+cpu+"player:"+player);
+	};
+}
 
 
 function placement(i,j,orient){
