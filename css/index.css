@@ -58,6 +58,24 @@ body{
 		top: 44vh;
 		left: 50vh;		
 	}
+	#l1{
+		position: absolute;
+		width: 12vh;
+		top: 44.5vh;
+		left: 26vh;		
+	}
+	#l2{
+		position: absolute;
+		width: 12vh;
+		top: 44.5vh;
+		left: 42vh;		
+	}
+	#l3{
+		position: absolute;
+		width: 12vh;
+		top: 44.5vh;
+		left: 58vh;		
+	}
 	#log{
 		position: absolute;
 		width: 50vh;

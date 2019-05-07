@@ -29,19 +29,27 @@ disc[5][4].src = k;
 disc[5][5].src = s;
 
 //$("#select").fadeOut(0);
+//$("#1").fadeOut(0);
+//$("#2").fadeOut(0);
+//$("#3").fadeOut(0);
+
+//$("#senkou").fadeOut(0);
+//$("#koukou").fadeOut(0);
 $("#cant").fadeOut(0);
 
-function select(sel){
-	return function(){
-		if(sel == 0){
-			cpu = "○";
-			player = "●";
-		}else{
-			cpu = "●";
-			player = "○";
-		}
-		console.log("cpu:"+cpu+"player:"+player);
-	};
+function selectTurn(input){
+	if(input == 0){
+		cpu = "○";
+		player = "●";
+	}else{
+		cpu = "●";
+		player = "○";
+	}
+	console.log("[selected](turn) cpu:"+cpu+"  player:"+player);
+}
+
+function selectLevel(input){
+	console.log("[selected](level) "+input);
 }
 
 
