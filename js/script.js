@@ -28,6 +28,8 @@ disc[4][5].src = k;
 disc[5][4].src = k;
 disc[5][5].src = s;
 
+
+
 //$("#select").fadeOut(0);
 //$("#1").fadeOut(0);
 //$("#2").fadeOut(0);
@@ -36,6 +38,22 @@ disc[5][5].src = s;
 //$("#senkou").fadeOut(0);
 //$("#koukou").fadeOut(0);
 $("#cant").fadeOut(0);
+
+function restart(){
+for(var i = 1; i < 9; i++) {
+	for (var j = 1; j < 9; j++) {
+		disc[i][j].src = n;
+	}
+}
+	disc[4][4].src = s;
+	disc[4][5].src = k;
+	disc[5][4].src = k;
+	disc[5][5].src = s;
+
+	turn = "●";
+	turnNum = 1;
+	click = 0;
+}
 
 function selectTurn(input){
 	if(input == 0){
