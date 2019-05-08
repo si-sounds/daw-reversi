@@ -73,9 +73,7 @@ function selectLevel(input){
 		showLevel = "上級";
 		break;
 	}
-	document.getElementById("log").appendChild(document.createTextNode("レベル："+showLevel));
-	document.getElementById("log").appendChild(document.createElement("br"));
-	document.getElementById("log").appendChild(document.createElement("br"));
+	document.getElementById("level").appendChild(document.createTextNode("レベル："+showLevel));
 }
 
 function selectTurn(input){
@@ -138,6 +136,9 @@ function change2(y, x, t, cpu){
 		}
 		document.getElementById("log").appendChild(document.createElement("br"));
 		
+		var logScroll = $("#log").get(0).scrollHeight;
+		$("#log").animate({scrollTop:logScroll});
+
 		sleep(1).done(function(){
 			if(turn == k){
 				turn = s;
@@ -516,7 +517,7 @@ function CPU(t){
 							y = i;
 							x = j;							
 						}
-						console.log(random);
+						//console.log(random);
 					}
 				}
 			}
@@ -539,7 +540,7 @@ function CPU(t){
 
 
 	change2(y, x, t, 0);
-	console.log(tmp);
+	//console.log(tmp);
 	return;
 }
 

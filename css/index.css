@@ -76,11 +76,21 @@ body{
 		top: 44.5vh;
 		left: 58vh;		
 	}
+	#level{
+		position: absolute;
+		width: 50vh;
+		height: 5vh;
+		top: 3vh;
+		left: 120vh;
+		margin: auto;
+		overflow: auto;
+		font-size: 3vh;
+	}
 	#log{
 		position: absolute;
 		width: 50vh;
-		height: 90vh;
-		top: 3vh;
+		height: 85vh;
+		top: 8vh;
 		left: 120vh;
 		margin: auto;
 		overflow: auto;
@@ -152,14 +162,17 @@ body{
 		top: 46.5vw;
 		left: 60vw;		
 	}
-	#log{
+	#level{
 		position: absolute;
 		width: 96vw;
-		top: 210vw;
+		height: 40vw;
+		top: 110vw;
 		left: 2vw;
-
-		margin: auto;
-		font-size: 3vw;
+		font-size: 4vw;
+	}
+	#log{
+		position: absolute;
+		display: none;
 	}
 	#turn{
 		position: absolute;
