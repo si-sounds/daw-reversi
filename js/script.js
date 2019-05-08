@@ -2,7 +2,7 @@ const n = "pic/dummy.png";	//no disc
 const k = "pic/kuro.png";	//kuro
 const s = "pic/siro.png";	//shiro
 
-var turn = "●"; //黒から
+var turn = k; //黒から
 var turnNum = 1;
 var click = 1;
 
@@ -48,7 +48,7 @@ for(var i = 1; i < 9; i++) {
 	disc[5][4].src = k;
 	disc[5][5].src = s;
 
-	turn = "●";
+	turn = k;
 	turnNum = 1;
 	click = 1;
 }
@@ -68,13 +68,14 @@ function selectLevel(input){
 function selectTurn(input){
 
 	if(input == 0){
-		cpu = "○";
-		player = "●";
+		cpu = s;
+		player = k;
 		click = 0;
 		document.getElementById("turn").innerHTML = "あなたの番";
 	}else{
-		cpu = "●";
-		player = "○";
+		cpu = k;
+		player = s;
+		turnControl();
 	}
 	$("#senkou").fadeOut();
 	$("#koukou").fadeOut();
@@ -102,10 +103,8 @@ function change(coordinates){
 			return;
 		}
 	
-		if(turn == "●" && player == "●"){
-			change2(y, x, k, 0);
-		}else if(turn == "○" && player == "○"){
-			change2(y, x, s, 0);
+		if(turn == player){
+			change2(y, x, player, 0);
 		}
 	};
 }
@@ -118,15 +117,18 @@ function change2(y, x, t, cpu){
 		$("#d"+id).fadeOut(0);
 		disc[y][x].src = t;		
 		$("#d"+id).fadeIn(300);
-
-		document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目:" + turn + " "+ x + " " + y));
+		if(turn == k){
+			document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ● "+ x + " " + y));
+		}else{
+			document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ○ "+ x + " " + y));
+		}
 		document.getElementById("log").appendChild(document.createElement("br"));
 		
 		sleep(1).done(function(){
-			if(turn == "●"){
-				turn = "○";
+			if(turn == k){
+				turn = s;
 			}else{
-				turn = "●";
+				turn = k;
 			}
 			click = 0;
 			turnControl();
@@ -135,9 +137,9 @@ function change2(y, x, t, cpu){
 }
 
 function turnControl(){
-	if(turn == "○"){
-		if(checkAll(s) == 0){
-			if(checkAll(k) == 0){
+	if(turn == cpu){
+		if(checkAll(cpu) == 0){
+			if(checkAll(player) == 0){
 				document.getElementById("turn").innerHTML = "勝敗判定中...";
 				sleep(0.5).done(function(){
 					result();				
@@ -151,18 +153,18 @@ function turnControl(){
 			sleep(3.5).done(function(){
 				$("#select").fadeOut();
 				$("#cant").fadeOut();
-				turn = "●";
+				turn = player;
 				turnControl();
 			});
 		}else{
 			document.getElementById("turn").innerHTML = "CPU思考中...";
 			sleep(0.5).done(function(){
-				CPU(s);
+				CPU(cpu);
 			});
 		}
 	}else{
-		if(checkAll(k) == 0){
-			if(checkAll(s) == 0){
+		if(checkAll(player) == 0){
+			if(checkAll(cpu) == 0){
 				document.getElementById("turn").innerHTML = "勝敗判定中...";
 				sleep(0.5).done(function(){
 					result();				
@@ -176,7 +178,7 @@ function turnControl(){
 			sleep(3.5).done(function(){
 				$("#select").fadeOut();
 				$("#cant").fadeOut();
-				turn = "○";
+				turn = cpu;
 				turnControl();
 			});
 		}else{
@@ -196,7 +198,7 @@ function check(y, x, t, cpu){
 		return score;
 	}
 
-	if(level == 1){
+	if(level < 3){
 		return score;
 	}
 
@@ -481,6 +483,7 @@ function CPU(t){
 	var tmp = 0;
 	var y = 0;
 	var x = 0;
+	var random;
 
 	switch(level){
 		case 1:
@@ -489,26 +492,20 @@ function CPU(t){
 					if(disc[i][j].getAttribute("src") != n){
 
 					}else if(tmp < check(i,j,t,1)){
-						tmp = check(i,j,t,1);
-						y = i;
-						x = j;
+						random = Math.floor(Math.random()*10);
+						if(tmp != 0 && random < 4){
+
+						}else{
+							tmp = check(i,j,t,1);
+							y = i;
+							x = j;							
+						}
+						console.log(random);
 					}
 				}
 			}
 		break;
 		case 2:
-			for(var i = 1; i < 9; i++){
-				for(var j = 1; j < 9; j++){
-					if(disc[i][j].getAttribute("src") != n){
-
-					}else if(tmp < check(i,j,t,1)){
-						tmp = check(i,j,t,1);
-						y = i;
-						x = j;
-					}
-				}
-			}
-		break;
 		case 3:
 			for(var i = 1; i < 9; i++){
 				for(var j = 1; j < 9; j++){
