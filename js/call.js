@@ -1,6 +1,6 @@
 function callScript() {
 	hobj = new XMLHttpRequest();
-	hobj.open("get","script.js");
+	hobj.open("get","js/script.js");
 	hobj.send(null);
 	hobj.onreadystatechange = function(){
 		var str = document.createElement("script");
