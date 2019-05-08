@@ -134,6 +134,24 @@ body{
 		top: 46vw;
 		left: 52vw;		
 	}
+	#l1{
+		position: absolute;
+		width: 12vw;
+		top: 46.5vw;
+		left: 28vw;		
+	}
+	#l2{
+		position: absolute;
+		width: 12vw;
+		top: 46.5vw;
+		left: 44vw;		
+	}
+	#l3{
+		position: absolute;
+		width: 12vw;
+		top: 46.5vw;
+		left: 60vw;		
+	}
 	#log{
 		position: absolute;
 		width: 96vw;

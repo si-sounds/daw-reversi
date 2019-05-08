@@ -60,7 +60,7 @@ function selectLevel(input){
 	$("#l3").fadeOut();
 	$("#senkou").fadeIn();
 	$("#koukou").fadeIn();
-	console.log("[selected](level) "+level);
+	//console.log("[selected](level) "+level);
 	document.getElementById("log").appendChild(document.createTextNode("レベル："+level));
 	document.getElementById("log").appendChild(document.createElement("br"));
 }
@@ -80,7 +80,7 @@ function selectTurn(input){
 	$("#senkou").fadeOut();
 	$("#koukou").fadeOut();
 	$("#select").fadeOut();
-	console.log("[selected](turn) cpu:"+cpu+"  player:"+player);
+	//console.log("[selected](turn) cpu:"+cpu+"  player:"+player);
 }
 
 function placement(i,j,orient){
