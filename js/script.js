@@ -118,9 +118,9 @@ function change2(y, x, t, cpu){
 		disc[y][x].src = t;		
 		$("#d"+id).fadeIn(300);
 		if(turn == k){
-			document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ● "+ x + " " + y));
+			//document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ● "+ x + " " + y));
 		}else{
-			document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ○ "+ x + " " + y));
+			//document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ○ "+ x + " " + y));
 		}
 		document.getElementById("log").appendChild(document.createElement("br"));
 		
