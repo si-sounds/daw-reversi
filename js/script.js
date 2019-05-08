@@ -37,7 +37,7 @@ $("#senkou").fadeOut(0);
 $("#koukou").fadeOut(0);
 $("#cant").fadeOut(0);
 
-function restart(){
+function reset(){
 for(var i = 1; i < 9; i++) {
 	for (var j = 1; j < 9; j++) {
 		disc[i][j].src = n;
@@ -49,8 +49,17 @@ for(var i = 1; i < 9; i++) {
 	disc[5][5].src = s;
 
 	turn = k;
-	turnNum = 1;
+	turnNum = 0;
 	click = 1;
+	document.getElementById("level").innerHTML = "";
+	document.getElementById("turn").innerHTML = "";
+	document.getElementById("log").innerHTML = "";
+	$("#senkou").fadeOut();
+	$("#koukou").fadeOut();
+	$("#select").fadeIn();
+	$("#l1").fadeIn();
+	$("#l2").fadeIn();
+	$("#l3").fadeIn();
 }
 
 function selectLevel(input){
