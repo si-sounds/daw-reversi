@@ -3,7 +3,7 @@ const k = "pic/kuro.png";	//kuro
 const s = "pic/siro.png";	//shiro
 
 var turn = k; //黒から
-var turnNum = 1;
+var turnNum = 0;
 var click = 1;
 
 var cpu;
@@ -54,6 +54,7 @@ for(var i = 1; i < 9; i++) {
 }
 
 function selectLevel(input){
+	var showLevel;
 	level = input;
 	$("#l1").fadeOut();
 	$("#l2").fadeOut();
@@ -61,7 +62,19 @@ function selectLevel(input){
 	$("#senkou").fadeIn();
 	$("#koukou").fadeIn();
 	//console.log("[selected](level) "+level);
-	document.getElementById("log").appendChild(document.createTextNode("レベル："+level));
+	switch(level){
+		case 1:
+			showLevel = "初級";
+			break;
+		case 2:
+			showLevel = "中級";
+			break;
+		case 3:
+		showLevel = "上級";
+		break;
+	}
+	document.getElementById("log").appendChild(document.createTextNode("レベル："+showLevel));
+	document.getElementById("log").appendChild(document.createElement("br"));
 	document.getElementById("log").appendChild(document.createElement("br"));
 }
 
@@ -71,6 +84,7 @@ function selectTurn(input){
 		cpu = s;
 		player = k;
 		click = 0;
+		turnNum = 1;
 		document.getElementById("turn").innerHTML = "あなたの番";
 	}else{
 		cpu = k;
@@ -118,9 +132,9 @@ function change2(y, x, t, cpu){
 		disc[y][x].src = t;		
 		$("#d"+id).fadeIn(300);
 		if(turn == k){
-			//document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ● "+ x + " " + y));
+			document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ● "+ x + " " + y));
 		}else{
-			//document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ○ "+ x + " " + y));
+			document.getElementById("log").appendChild(document.createTextNode(turnNum + "手目: ○ "+ x + " " + y));
 		}
 		document.getElementById("log").appendChild(document.createElement("br"));
 		
@@ -154,6 +168,7 @@ function turnControl(){
 				$("#select").fadeOut();
 				$("#cant").fadeOut();
 				turn = player;
+				turnNum--;
 				turnControl();
 			});
 		}else{
@@ -179,6 +194,7 @@ function turnControl(){
 				$("#select").fadeOut();
 				$("#cant").fadeOut();
 				turn = cpu;
+				turnNum--;
 				turnControl();
 			});
 		}else{
@@ -570,7 +586,7 @@ function result(){
 	}
 	if(p > c){
 		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " あなたの勝ち！";
-	}else if(countS > countK){
+	}else if(c > p){
 		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " あなたの負け！";
 	}else{
 		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " 引き分け！";
