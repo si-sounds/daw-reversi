@@ -38,6 +38,9 @@ $("#koukou").fadeOut(0);
 $("#cant").fadeOut(0);
 
 function reset(){
+	if(click == 1){
+		return;
+	}
 for(var i = 1; i < 9; i++) {
 	for (var j = 1; j < 9; j++) {
 		disc[i][j].src = n;
