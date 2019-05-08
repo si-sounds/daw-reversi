@@ -560,7 +560,15 @@ function result(){
 			}
 		}
 	}
-	if(countK > countS){
+	var p, c;
+	if(player == k){
+		p = countK;
+		c = countS;
+	}else{
+		p = countS;
+		c = countK;
+	}
+	if(p > c){
 		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " あなたの勝ち！";
 	}else if(countS > countK){
 		document.getElementById("turn").innerHTML = "●" + countK + " : ○" + countS + " あなたの負け！";
